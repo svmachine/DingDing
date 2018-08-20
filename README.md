@@ -5,13 +5,14 @@
 
 需要自定义listener，在contextInitialized方法中初始化钉钉的api执行的必要条件环境，
 
+```
 @Override
 public void contextInitialized(ServletContextEvent sce) {
     DefaultContext.init(String random, String corpSecret, String corpId, String agentId);
 }
-
+```
 2.jsp页面的放置，使用ifream的方式加载需要单点的系统页面，因钉钉免登区分pc端以及移动端故需要两个jsp页面，在任意页面中加入如下代码区分跳转pc端或手机端
-
+```
 <script>
     var ua = navigator.userAgent;
     var US = {
@@ -35,11 +36,11 @@ public void contextInitialized(ServletContextEvent sce) {
         window.location = "/indexPC.jsp";     //如果是电脑访问 ,则跳入指定网址。实例中为indexPC.jsp
     }
 </script>
-    
+```
     
 3.编写获取登录用户id的js
 
-DingTalkPC.ready(function() {
+```DingTalkPC.ready(function() {
     DingTalkPC.runtime.permission.requestAuthCode({
         corpId : _config.corpId,
         onSuccess : function(info) {
@@ -65,7 +66,7 @@ DingTalkPC.ready(function() {
         }
     });
 });
-
+```
 4.获取url中的username参数，在第三方系统中实现免登陆即可。
 
 5.获取钉钉部门，用户信息
