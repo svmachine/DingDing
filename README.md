@@ -11,7 +11,7 @@ public void contextInitialized(ServletContextEvent sce) {
     DefaultContext.init(String random, String corpSecret, String corpId, String agentId);
 }
 ```
-2.jsp页面的放置，使用ifream的方式加载需要单点的系统页面，因钉钉免登区分pc端以及移动端故需要两个jsp页面，在任意页面中加入如下代码区分跳转pc端或手机端
+2.jsp页面的放置，使用ifream的方式加载需要单点的系统页面，一般jsp页面（示例中为index.jsp、indexPC.jsp）放置在tomcat/webapps/ROOT目录下，因钉钉免登区分pc端以及移动端故需要两个jsp页面，在任意页面中加入如下代码区分跳转pc端或手机端
 ```
 <script>
     var ua = navigator.userAgent;
@@ -38,9 +38,24 @@ public void contextInitialized(ServletContextEvent sce) {
 </script>
 ```
     
-3.编写获取登录用户id的js
+3.编写获取登录用户id的js, 此处为pc端，手机端将DingTalkPC替换为dd即可
+pc端js：https://g.alicdn.com/dingding/dingtalk-pc-api/2.7.0/index.js  http://g.alicdn.com/ilw/cdnjs/zepto/1.1.6/zepto.min.js
+手机端js: http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js  http://g.alicdn.com/ilw/cdnjs/zepto/1.1.6/zepto.min.js
 
-```DingTalkPC.ready(function() {
+```
+DingTalkPC.config({
+    agentId : _config.agentid,
+    corpId : _config.corpId,
+    timeStamp : _config.timeStamp,
+    nonceStr : _config.nonceStr,
+    signature : _config.signature,
+    jsApiList : [ 'runtime.info', 'biz.contact.choose',
+        'device.notification.confirm', 'device.notification.alert',
+        'device.notification.prompt', 'biz.ding.post',
+        'biz.util.openLink' ]
+});
+
+DingTalkPC.ready(function() {
     DingTalkPC.runtime.permission.requestAuthCode({
         corpId : _config.corpId,
         onSuccess : function(info) {
@@ -71,4 +86,10 @@ public void contextInitialized(ServletContextEvent sce) {
 
 5.获取钉钉部门，用户信息
 
-调用DingDingUserAndGroup类中的方法即可。
+调用DingDingUserAndGroup类中的方法即可
+getDepartments(String departmentId); //获取指定部门id下的子部门信息
+getDepartments(); //获取所有部门信息
+getUserByDepartment(String departmentId); //获取指定部门id下的用户信息
+getUsers(); //获取所有的用户信息
+getDepartmentParentId(String departmentId); //获取指定部门id的完整路径id
+getDepartmentById(String departmentId); //获取指定部门id的部门详细信息
