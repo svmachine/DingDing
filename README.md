@@ -39,8 +39,8 @@ public void contextInitialized(ServletContextEvent sce) {
 ```
     
 3.编写获取登录用户id的js, 此处为pc端，手机端将DingTalkPC替换为dd即可
-pc端js：https://g.alicdn.com/dingding/dingtalk-pc-api/2.7.0/index.js  http://g.alicdn.com/ilw/cdnjs/zepto/1.1.6/zepto.min.js
-手机端js: http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js  http://g.alicdn.com/ilw/cdnjs/zepto/1.1.6/zepto.min.js
+<p>pc端js：https://g.alicdn.com/dingding/dingtalk-pc-api/2.7.0/index.js  http://g.alicdn.com/ilw/cdnjs/zepto/1.1.6/zepto.min.js</p>
+<p>手机端js: http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js  http://g.alicdn.com/ilw/cdnjs/zepto/1.1.6/zepto.min.js</p>
 
 ```
 DingTalkPC.config({
@@ -87,9 +87,16 @@ DingTalkPC.ready(function() {
 5.获取钉钉部门，用户信息
 
 调用DingDingUserAndGroup类中的方法即可
+```
 getDepartments(String departmentId); //获取指定部门id下的子部门信息
+
 getDepartments(); //获取所有部门信息
+
 getUserByDepartment(String departmentId); //获取指定部门id下的用户信息
+
 getUsers(); //获取所有的用户信息
+
 getDepartmentParentId(String departmentId); //获取指定部门id的完整路径id
+
 getDepartmentById(String departmentId); //获取指定部门id的部门详细信息
+```
